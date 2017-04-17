@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 import com.nassau.br.SerializedDFe;
 import com.nassau.br.api.business.SerializedDFeBusiness;
-import com.nassau.br.kafka.Producer;
+import com.nassau.br.kafka.SerializedDFeProducer;
 
 /**
  * Envia um documento fiscal eletrônico para processamento
@@ -19,7 +19,7 @@ public class SerializedDFeBusinessImpl implements SerializedDFeBusiness {
 	 * The Kafka Producer
 	 */
 	@Autowired
-	private Producer producer;
+	private SerializedDFeProducer producer;
 	
 	/**
 	 * O envio para processamento de um DF-e consiste em:

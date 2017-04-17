@@ -10,12 +10,12 @@ import com.nassau.br.Identifiable;
  *
  * @param <T>
  */
-public interface PutMapper<T extends Identifiable> {
+public interface PutMapper {
 	/**
 	 * Map method
 	 * @param object
 	 * @param put
 	 * @throws Throwable
 	 */
-	public Put map(T object) throws Throwable;
+	public <T extends Identifiable> Put map(T object) throws Throwable;
 }

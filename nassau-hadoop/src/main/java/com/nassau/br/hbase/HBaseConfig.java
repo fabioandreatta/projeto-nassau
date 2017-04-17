@@ -2,6 +2,7 @@ package com.nassau.br.hbase;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
@@ -10,6 +11,7 @@ import com.nassau.br.exceptions.NassauException;
 
 @Configuration
 @PropertySource("classpath:hbase.properties")
+@ComponentScan({"com.nassau.br"})
 public class HBaseConfig {
 	/**
 	 * Constants
@@ -44,7 +46,7 @@ public class HBaseConfig {
 	private String clientPort;
 	
 	/**
-	 * ConfiguraÃ§Ãµes do HBase
+	 * Configurações do HBase
 	 * @return
 	 * @throws NassauException 
 	 */

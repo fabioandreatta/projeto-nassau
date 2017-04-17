@@ -23,8 +23,15 @@
 
 		<!-- Spring Kafka: Já dá para usar. O Spring-hadoop ainda está muito complicado. -->
 		<dependency>
-			<groupId>org.springframework.kafka</groupId>
-			<artifactId>spring-kafka</artifactId>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients -->
+		<dependency>
+		    <groupId>org.apache.kafka</groupId>
+		    <artifactId>kafka-clients</artifactId>
+		    <version>0.9.0.1</version>
 		</dependency>
 		
 		<dependency>

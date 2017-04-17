@@ -1,15 +1,13 @@
 package com.nassau.br.kafka;
 
-import java.util.Arrays;
 import java.util.Map;
 
 import org.apache.kafka.common.serialization.Deserializer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.nassau.br.SerializedDFe;
-import com.nassau.br.exceptions.NassauException;
-import com.nassau.br.hbase.HBaseSingleton;
-import com.nassau.br.hbase.HBaseTemplate;
-import com.nassau.br.hbase.mappers.SerializedDFeRowMapper;
+import com.nassau.br.hbase.EntityManager;
 
 /**
  * Essa classe deserializa um DFe para desenfileir√°-lo do Kafka.
@@ -17,8 +15,19 @@ import com.nassau.br.hbase.mappers.SerializedDFeRowMapper;
  * 
  * @author fabio
  */
+@Component
 public class SerializedDFeDeserializer implements Deserializer<SerializedDFe>  {
-
+	/**
+	 * Isso aqui È uma gambiarra tremenda. Temos que achar um jeito melhor pra
+	 * injetar o HBase no Serializador do Kafka.
+	 */
+	private static EntityManager em;
+	
+	@Autowired
+	public void setHbase(EntityManager em) {
+		SerializedDFeDeserializer.em = em; 
+	}
+	
 	@Override
 	public void close() {
 		// Nothing to do
@@ -26,26 +35,11 @@ public class SerializedDFeDeserializer implements Deserializer<SerializedDFe>  {
 
 	@Override
 	public void configure(Map<String, ?> arg0, boolean arg1) {
-		// Check if hbase table exists
-		HBaseTemplate hbase = HBaseSingleton.hbase();
-		try {
-			if (!hbase.tableExists("incoming-dfe")) {
-				hbase.createTable("incoming-dfe", Arrays.asList(new String[] {"serialized"}));
-			}
-		} catch (NassauException e) {
-			// TODO log
-		}
+		// Nothing to do
 	}
 
 	@Override
 	public SerializedDFe deserialize(String topic, byte[] data) {
-		try {
-			HBaseTemplate hbase = HBaseSingleton.hbase();
-			String id = new String(data);
-			return hbase.get("incoming-dfe", id, new SerializedDFeRowMapper());
-		} catch (NassauException e) {
-			// TODO log
-		}
 		return null;
 	}
 

@@ -10,8 +10,10 @@ import com.nassau.br.hbase.HBaseTemplate;
 @SpringBootApplication
 @ComponentScan({"com.nassau.br"})
 public class NFeBIApplication {
+	
 	public static void main(String[] args) {
 		ApplicationContext context = SpringApplication.run(NFeBIApplication.class);
-		HBaseTemplate hbase = context.getBean(HBaseTemplate.class);
+		// HBaseTemplate hbase = context.getBean(HBaseTemplate.class);
+		
 	}
 }

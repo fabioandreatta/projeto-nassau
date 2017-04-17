@@ -33,18 +33,20 @@ public class HBaseTest {
 		hbase.createTable(table, Arrays.asList(new String[] {"document"}));
 
 		SerializedDFe dfe = new SerializedDFe("Test data");
-		hbase.put(table, dfe, new PutMapper<SerializedDFe>() {
+		hbase.put(table, dfe, new PutMapper() {
 			@Override
-			public Put map(SerializedDFe dfe) throws Throwable {
-				Put entry = new Put(dfe.id().getBytes());
-				entry.addColumn("document".getBytes(), "dfe".getBytes(), dfe.getSerializedData().getBytes());
+			public <T extends Identifiable> Put map(T object) throws Throwable {
+				SerializedDFe dfei = (SerializedDFe) object;
+				Put entry = new Put(dfei.id().getBytes());
+				entry.addColumn("document".getBytes(), "dfe".getBytes(), dfei.getSerializedData().getBytes());
 				return entry;
 			}
 		});
 		
-		SerializedDFe loaded = hbase.get(table, dfe.id(), new RowMapper<SerializedDFe>() {
+		SerializedDFe loaded = hbase.get(table, dfe.id(), new RowMapper() {
+			@SuppressWarnings("unchecked")
 			@Override
-			public SerializedDFe map(Result result) throws Throwable {
+			public Identifiable map(Result result) throws Throwable {
 				String id 			= Bytes.toString(result.getRow());
 				String serialized 	= Bytes.toString(result.getValue("document".getBytes(), "dfe".getBytes()));
 				return new SerializedDFe(id, serialized);
@@ -53,6 +55,6 @@ public class HBaseTest {
 		
 		hbase.dropTable(table);
 		
-		assertEquals("Os id nao casam.", dfe.id(), loaded.id());
+		assertEquals("Os ids nao casam.", dfe.id(), loaded.id());
 	}
 }

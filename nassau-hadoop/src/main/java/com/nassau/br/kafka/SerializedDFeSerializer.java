@@ -1,23 +1,34 @@
 package com.nassau.br.kafka;
 
-import java.util.Arrays;
 import java.util.Map;
 
 import org.apache.kafka.common.serialization.Serializer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.nassau.br.SerializedDFe;
 import com.nassau.br.exceptions.NassauException;
-import com.nassau.br.hbase.HBaseSingleton;
-import com.nassau.br.hbase.HBaseTemplate;
-import com.nassau.br.hbase.mappers.SerializedDFePutMapper;
+import com.nassau.br.hbase.EntityManager;
 
 /**
- * Essa classe serializa um DFe para enfileir√°-lo no Kafka.
- * A estrat√©gia √© salvar o DFe no HBase e enfileirar somente o c√≥digo do documento no Kafka.
+ * Essa classe serializa um DFe para enfileir·-lo no Kafka.
+ * A estratÈgia È salvar o DFe no HBase e enfileirar somente o cÛdigo do documento no Kafka.
  *  
  * @author fabio
  */
+@Component
 public class SerializedDFeSerializer implements Serializer<SerializedDFe> {
+	/**
+	 * Isso aqui È uma gambiarra tremenda. Temos que achar um jeito melhor pra
+	 * injetar o HBase no Serializador do Kafka.
+	 */
+	private static EntityManager em;
+	
+	@Autowired
+	public void setHbase(EntityManager em) {
+		SerializedDFeSerializer.em = em; 
+	}
+	
 	@Override
 	public void close() {
 		// Nothing to do
@@ -25,25 +36,17 @@ public class SerializedDFeSerializer implements Serializer<SerializedDFe> {
 
 	@Override
 	public void configure(Map<String, ?> arg0, boolean arg1) {
-		// Check if hbase table exists
-		HBaseTemplate hbase = HBaseSingleton.hbase();
-		try {
-			if (!hbase.tableExists("incoming-dfe")) {
-				hbase.createTable("incoming-dfe", Arrays.asList(new String[] {"serialized"}));
-			}
-		} catch (NassauException e) {
-			// TODO log
-		}
+		// Nothing to do
 	}
 
 	@Override
 	public byte[] serialize(String topic, SerializedDFe dfe) {
 		try {
-			HBaseTemplate hbase = HBaseSingleton.hbase();
-			hbase.put("incoming-dfe", dfe, new SerializedDFePutMapper());
+			em.put(dfe);
+			return dfe.id().getBytes();
 		} catch (NassauException e) {
 			// TODO log
 		}
-		return dfe.id().getBytes();
+		return null;
 	}
 }

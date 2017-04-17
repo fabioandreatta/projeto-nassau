@@ -7,15 +7,13 @@ import com.nassau.br.Identifiable;
 /**
  * Maps a result into an object
  * @author fabio
- *
- * @param <T>
  */
-public interface RowMapper<T extends Identifiable> {
+public interface RowMapper {
 	/**
 	 * Maps method
 	 * @param result
 	 * @return
 	 * @throws Throwable
 	 */
-	public T map(Result result) throws Throwable;
+	public <T extends Identifiable> T map(Result result) throws Throwable;
 }

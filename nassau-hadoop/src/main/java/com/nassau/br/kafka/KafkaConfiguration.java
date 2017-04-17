@@ -1,43 +1,44 @@
 package com.nassau.br.kafka;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Properties;
 
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.kafka.core.DefaultKafkaProducerFactory;
-import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.kafka.core.ProducerFactory;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 import com.nassau.br.SerializedDFe;
 
 /**
- * ConfiguraÃ§Ãµes do Kafka
+ * Configurações do Kafka
  * @author fabio
  */
 @Configuration
 @PropertySource("classpath:kafka.properties")
+@ComponentScan({"com.nassau.br"})
 public class KafkaConfiguration {
 	/**
 	 * Bootstrap configuration
 	 */
-	@Value("${kafka.servers.bootstrap}")
+	@Value("${kafka.servers.bootstrap:}")
 	private String bootstrapServers;
 	
 	/*
 	 * Producer
 	 */
 	/**
-	 * ConfiguraÃ§Ãµes do Kafka
+	 * Configurações do Kafka
 	 * @return
 	 */
 	@Bean
-	public Map<String, Object> producerConfigs() {
-		Map<String, Object> props = new HashMap<>();
+	public Properties producerConfigs() {
+		Properties props = new Properties();
 		props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, 		bootstrapServers);
 		props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, 	StringSerializer.class);
 		props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, SerializedDFeSerializer.class);
@@ -46,25 +47,16 @@ public class KafkaConfiguration {
 	}
 	
 	/**
-	 * Producer Factory
+	 * Creates the Kafka producer
 	 * @return
 	 */
 	@Bean
-	public ProducerFactory<String, SerializedDFe> producerFactory() {
-		return new DefaultKafkaProducerFactory<String, SerializedDFe>(producerConfigs());
+	public Producer<String, SerializedDFe> producer() {
+		return new KafkaProducer<String, SerializedDFe>(producerConfigs());
 	}
 	
-	/**
-	 * KafkaTemplate
-	 * @return
-	 */
 	@Bean
-	public KafkaTemplate<String, SerializedDFe> kafkaTemplate() {
-		return new KafkaTemplate<String, SerializedDFe>(producerFactory());
+	public static PropertySourcesPlaceholderConfigurer propertyConfigIn() {
+		return new PropertySourcesPlaceholderConfigurer();
 	}
-	
-	/*
-	 * Consumer
-	 */
-	// TODO
 }

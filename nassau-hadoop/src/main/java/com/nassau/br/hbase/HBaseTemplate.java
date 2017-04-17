@@ -144,7 +144,7 @@ public class HBaseTemplate {
      * @param mapper
      * @throws NassauException
      */
-    public <T extends Identifiable> void put(String table, T object, PutMapper<T> mapper) throws NassauException {
+    public <T extends Identifiable> void put(String table, T object, PutMapper mapper) throws NassauException {
     	try {
     		Table htable = connection.getTable(TableName.valueOf(table));
     		Put entry = mapper.map(object);
@@ -162,7 +162,7 @@ public class HBaseTemplate {
      * @param mapper
      * @throws NassauException
      */
-    public <T extends Identifiable> void put(String table, List<T> objects, PutMapper<T> mapper) throws NassauException {
+    public <T extends Identifiable> void put(String table, List<T> objects, PutMapper mapper) throws NassauException {
     	try {
     		List<Put> entries = new ArrayList<Put>(0);
     		Table htable = connection.getTable(TableName.valueOf(table));
@@ -187,7 +187,7 @@ public class HBaseTemplate {
      * @return
      * @throws NassauException
      */
-    public <T extends Identifiable> T get(String table, String row, RowMapper<T> mapper) throws NassauException {
+    public <T extends Identifiable> T get(String table, String row, RowMapper mapper) throws NassauException {
     	try {
     		Table htable = connection.getTable(TableName.valueOf(table));
     		Result result = htable.get(new Get(row.getBytes()));
