@@ -24,6 +24,7 @@
         <module>nassau-api</module>
         <module>nassau-common</module>
         <module>nassau-hadoop</module>
+        <module>nassau-modules</module>
     </modules>
 
     <properties>
