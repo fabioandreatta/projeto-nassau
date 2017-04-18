@@ -17,7 +17,7 @@
 		<!-- Nassau -->
 		<dependency>
 			<groupId>com.nassau.br</groupId>
-			<artifactId>nassau-hadoop</artifactId>
+			<artifactId>nassau-core</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 		

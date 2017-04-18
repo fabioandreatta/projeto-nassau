@@ -9,18 +9,11 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>nassau-hadoop</artifactId>
+	<artifactId>nassau-core</artifactId>
 	<packaging>jar</packaging>
-	<name>Biblioteca de acesso ao Hadoop</name>
+	<name>Funcionalidades basicas do projeto nassau</name>
 
 	<dependencies>
-		<!-- Nassau -->
-		<dependency>
-			<groupId>com.nassau.br</groupId>
-			<artifactId>nassau-common</artifactId>
-			<version>${project.parent.version}</version>
-		</dependency>
-
 		<!-- Spring Kafka: Já dá para usar. O Spring-hadoop ainda está muito complicado. -->
 		<dependency>
 			<groupId>org.springframework</groupId>

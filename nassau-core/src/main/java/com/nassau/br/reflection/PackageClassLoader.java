@@ -9,9 +9,6 @@ import java.util.Set;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  * Loads all classes in a package
  * 	Thanks to stackoverflow: http://stackoverflow.com/questions/15519626/how-to-get-all-classes-names-in-a-package
@@ -20,7 +17,7 @@ import org.slf4j.LoggerFactory;
  */
 public class PackageClassLoader {
 	// Define the log object for this class
-	private static final Logger log = LoggerFactory.getLogger(PackageClassLoader.class);
+	// private static final Logger log = LoggerFactory.getLogger(PackageClassLoader.class);
 	  
 	private static final String CLASS_FILE_SUFFIX = ".class";
 	private static final String JAR_FILE_SUFFIX = ".jar";
@@ -71,19 +68,16 @@ public class PackageClassLoader {
                         JarEntry entry = entries.nextElement();
                         String name = entry.getName();
                         if (name.endsWith(JAR_FILE_SUFFIX)) {
-                        	log.info("name: " + name);
                         	classes.addAll(findClasses(root, new File("jar:file:./" + name + "!/")));
                         } else {
 	                        int extIndex = name.lastIndexOf(CLASS_FILE_SUFFIX);
 	                        if (extIndex > 0) {
-	                        	log.info("name: " + name);
 								classes.add(name.substring(0, extIndex).replace("/", "."));
 	                        }
                         }
                     }
                 }
             } else if (file.getName().toLowerCase().endsWith(CLASS_FILE_SUFFIX)) {
-            	log.info("name: " + file.getName());
 				classes.add(createClassName(root, file));
             }
         }
