@@ -7,7 +7,7 @@ import com.nassau.br.annotations.NassauHTableColumn;
 import com.nassau.br.annotations.NassauHTableRowId;
 
 /**
- * Um documento fiscal eletrônico serializado pode ser qualquer DF-e.
+ * Um documento fiscal eletrï¿½nico serializado pode ser qualquer DF-e.
  * 
  * @author fabio
  */
@@ -19,7 +19,7 @@ public class SerializedDFe extends DFe {
 	private static final long serialVersionUID = -4386655332794879952L;
 
 	/**
-	 * Identificador universal Único de um documento fiscal eletrônico serializado.
+	 * Identificador universal ï¿½nico de um documento fiscal eletrï¿½nico serializado.
 	 */
 	@NassauHTableRowId
 	private String uuid;
@@ -31,7 +31,7 @@ public class SerializedDFe extends DFe {
 	private String serialized;
 
 	/**
-	 * Construtor padrão
+	 * Construtor padrï¿½o
 	 */
 	public SerializedDFe() {
 		super();
@@ -39,7 +39,7 @@ public class SerializedDFe extends DFe {
 	}
 	
 	/**
-	 * Construtor de cópia
+	 * Construtor de cï¿½pia
 	 * @param dfe
 	 */
 	public SerializedDFe(SerializedDFe dfe) {

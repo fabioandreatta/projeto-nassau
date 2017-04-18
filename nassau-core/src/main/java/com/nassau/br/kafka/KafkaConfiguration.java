@@ -20,14 +20,14 @@ import com.nassau.br.SerializedDFe;
  * @author fabio
  */
 @Configuration
-@PropertySource("classpath:kafka.properties")
+@PropertySource("classpath:kafka.properties") 
 @ComponentScan({"com.nassau.br"})
 public class KafkaConfiguration {
 	/**
 	 * Bootstrap configuration
 	 */
 	@Value("${kafka.servers.bootstrap:}")
-	private String bootstrapServers;
+	private String bootstrapServers; // TODO we should try to get all properties from the file
 	
 	/*
 	 * Producer

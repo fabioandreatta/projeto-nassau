@@ -9,6 +9,8 @@ import java.util.Set;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
+import com.nassau.br.SerializedDFe;
+
 /**
  * Loads all classes in a package
  * 	Thanks to stackoverflow: http://stackoverflow.com/questions/15519626/how-to-get-all-classes-names-in-a-package
@@ -31,6 +33,7 @@ public class PackageClassLoader {
 					classes.add(Class.forName(clazz));
 			} catch (ClassNotFoundException e) {}
 		}
+		classes.add(SerializedDFe.class); // TODO O loader não está funcionando, então inclui direto na mão.
 		return classes;
     }
 	

@@ -14,17 +14,10 @@
 	<name>Funcionalidades basicas do projeto nassau</name>
 
 	<dependencies>
-		<!-- Spring Kafka: Já dá para usar. O Spring-hadoop ainda está muito complicado. -->
+		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
-		</dependency>
-		
-		<!-- https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients -->
-		<dependency>
-		    <groupId>org.apache.kafka</groupId>
-		    <artifactId>kafka-clients</artifactId>
-		    <version>0.9.0.1</version>
 		</dependency>
 		
 		<dependency>
@@ -32,7 +25,27 @@
 			<artifactId>spring-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-
+		
+		<!-- Kafka -->
+		<dependency>
+		    <groupId>org.apache.kafka</groupId>
+		    <artifactId>kafka-clients</artifactId>
+		    <version>0.9.0.1</version>
+		</dependency>
+		
+		<!-- Zookeeper -->
+		<dependency>
+    		<groupId>com.101tec</groupId>
+    		<artifactId>zkclient</artifactId>
+    		<version>0.7</version>
+    		<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		
 		<!-- HBase -->
 		<dependency>
 			<groupId>org.apache.hbase</groupId>
