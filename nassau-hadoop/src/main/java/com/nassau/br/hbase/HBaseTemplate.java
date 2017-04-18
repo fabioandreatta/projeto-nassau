@@ -18,7 +18,6 @@ import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.client.Result;
 import org.apache.hadoop.hbase.client.Table;
 
-import com.nassau.br.Identifiable;
 import com.nassau.br.exceptions.NassauException;
 
 /**
@@ -144,14 +143,14 @@ public class HBaseTemplate {
      * @param mapper
      * @throws NassauException
      */
-    public <T extends Identifiable> void put(String table, T object, PutMapper mapper) throws NassauException {
+    public <T> void put(String table, T object, PutMapper mapper) throws NassauException {
     	try {
     		Table htable = connection.getTable(TableName.valueOf(table));
     		Put entry = mapper.map(object);
     		htable.put(entry);
     		htable.close();
     	} catch (Throwable e) {
-    		throw new NassauException(); // TODO Improve this
+    		throw new NassauException(e); // TODO Improve this
     	}
     }
     
@@ -162,7 +161,7 @@ public class HBaseTemplate {
      * @param mapper
      * @throws NassauException
      */
-    public <T extends Identifiable> void put(String table, List<T> objects, PutMapper mapper) throws NassauException {
+    public <T> void put(String table, List<T> objects, PutMapper mapper) throws NassauException {
     	try {
     		List<Put> entries = new ArrayList<Put>(0);
     		Table htable = connection.getTable(TableName.valueOf(table));
@@ -187,11 +186,11 @@ public class HBaseTemplate {
      * @return
      * @throws NassauException
      */
-    public <T extends Identifiable> T get(String table, String row, RowMapper mapper) throws NassauException {
+    public <T> T get(String table, String row, RowMapper mapper) throws NassauException {
     	try {
     		Table htable = connection.getTable(TableName.valueOf(table));
     		Result result = htable.get(new Get(row.getBytes()));
-    		T object = mapper.map(result);
+    		T object = mapper.map(table, result);
     		htable.close();
     		return object;
     	} catch (Throwable e) {

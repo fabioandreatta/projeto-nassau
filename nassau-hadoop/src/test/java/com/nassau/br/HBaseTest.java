@@ -35,7 +35,7 @@ public class HBaseTest {
 		SerializedDFe dfe = new SerializedDFe("Test data");
 		hbase.put(table, dfe, new PutMapper() {
 			@Override
-			public <T extends Identifiable> Put map(T object) throws Throwable {
+			public <T> Put map(T object) throws Throwable {
 				SerializedDFe dfei = (SerializedDFe) object;
 				Put entry = new Put(dfei.id().getBytes());
 				entry.addColumn("document".getBytes(), "dfe".getBytes(), dfei.getSerializedData().getBytes());
@@ -46,7 +46,7 @@ public class HBaseTest {
 		SerializedDFe loaded = hbase.get(table, dfe.id(), new RowMapper() {
 			@SuppressWarnings("unchecked")
 			@Override
-			public Identifiable map(Result result) throws Throwable {
+			public SerializedDFe map(String table, Result result) throws Throwable {
 				String id 			= Bytes.toString(result.getRow());
 				String serialized 	= Bytes.toString(result.getValue("document".getBytes(), "dfe".getBytes()));
 				return new SerializedDFe(id, serialized);

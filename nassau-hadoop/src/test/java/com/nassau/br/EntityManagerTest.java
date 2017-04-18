@@ -1,5 +1,7 @@
 package com.nassau.br;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,5 +22,8 @@ public class EntityManagerTest {
 	public void testEntityManager() throws NassauException {
 		SerializedDFe dfe = new SerializedDFe("Serialized DFe Test Data");
 		em.put(dfe);
+		SerializedDFe loaded = em.get(SerializedDFe.class, dfe.id());
+		
+		assertEquals("Os ids nao casam.", dfe.id(), loaded.id());
 	}
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.nassau.br.SerializedDFe;
+import com.nassau.br.exceptions.NassauException;
 import com.nassau.br.hbase.EntityManager;
 
 /**
@@ -18,7 +19,7 @@ import com.nassau.br.hbase.EntityManager;
 @Component
 public class SerializedDFeDeserializer implements Deserializer<SerializedDFe>  {
 	/**
-	 * Isso aqui é uma gambiarra tremenda. Temos que achar um jeito melhor pra
+	 * Isso aqui ï¿½ uma gambiarra tremenda. Temos que achar um jeito melhor pra
 	 * injetar o HBase no Serializador do Kafka.
 	 */
 	private static EntityManager em;
@@ -40,6 +41,12 @@ public class SerializedDFeDeserializer implements Deserializer<SerializedDFe>  {
 
 	@Override
 	public SerializedDFe deserialize(String topic, byte[] data) {
+		try {
+			SerializedDFe dfe = em.get(SerializedDFe.class, new String(data));
+			return dfe;
+		} catch (NassauException e) {
+			// TODO Log
+		}
 		return null;
 	}
 

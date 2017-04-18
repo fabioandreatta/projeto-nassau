@@ -2,8 +2,6 @@ package com.nassau.br.hbase;
 
 import org.apache.hadoop.hbase.client.Result;
 
-import com.nassau.br.Identifiable;
-
 /**
  * Maps a result into an object
  * @author fabio
@@ -15,5 +13,5 @@ public interface RowMapper {
 	 * @return
 	 * @throws Throwable
 	 */
-	public <T extends Identifiable> T map(Result result) throws Throwable;
+	public <T> T map(String table, Result result) throws Throwable;
 }

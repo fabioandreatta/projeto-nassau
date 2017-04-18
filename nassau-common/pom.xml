@@ -13,4 +13,11 @@
 	<packaging>jar</packaging>
 	<name>Classes comuns do Projeto Nassau</name>
 	<description>Classes comuns do Projeto Nassau</description>
+	
+	<dependencies>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>log4j-over-slf4j</artifactId>
+		</dependency>
+	</dependencies> 
 </project>

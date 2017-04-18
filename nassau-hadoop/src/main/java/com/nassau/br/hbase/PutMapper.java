@@ -2,8 +2,6 @@ package com.nassau.br.hbase;
 
 import org.apache.hadoop.hbase.client.Put;
 
-import com.nassau.br.Identifiable;
-
 /**
  * Maps an object into a HBase Put
  * @author fabio
@@ -17,5 +15,5 @@ public interface PutMapper {
 	 * @param put
 	 * @throws Throwable
 	 */
-	public <T extends Identifiable> Put map(T object) throws Throwable;
+	public <T> Put map(T object) throws Throwable;
 }

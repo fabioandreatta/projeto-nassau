@@ -22,6 +22,6 @@ public class KafkaTest {
 	public void testSend() throws Exception {
 		SerializedDFe dfe = new SerializedDFe("Teste");
 		producer.send("incoming.dfe", dfe);
-		assertEquals("O item n„o foi enfileirado.", true, true);
+		assertEquals("O item n√£o foi enfileirado.", true, true);
 	}
 }
