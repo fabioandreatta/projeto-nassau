@@ -47,7 +47,7 @@ public class SerializedDFeProducer implements NassauProducer<SerializedDFe> {
 	}
 	
 	/**
-	 * Envia uma mensagem para o kafka em modo assíncrono
+	 * Envia uma mensagem para o kafka em modo assÃ­ncrono
 	 * @param topic
 	 * @param message
 	 * @throws Exception 

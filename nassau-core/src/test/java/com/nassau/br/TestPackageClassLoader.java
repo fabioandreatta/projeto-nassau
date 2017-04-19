@@ -13,6 +13,6 @@ public class TestPackageClassLoader {
 	@Test
 	public void testPackageClassLoader() throws MalformedURLException {
 		List<Class<?>> classes = PackageClassLoader.find("com.nassau.br");
-		assertNotEquals("Não foi encontrada nenhuma classe no pacote com.nassau.br.", classes.size(), 0);
+		assertNotEquals("Nao foi encontrada nenhuma classe no pacote com.nassau.br.", classes.size(), 0);
 	}
 }

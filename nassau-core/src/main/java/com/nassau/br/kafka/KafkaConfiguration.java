@@ -15,8 +15,12 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 import com.nassau.br.SerializedDFe;
 
+import kafka.consumer.Consumer;
+import kafka.consumer.ConsumerConfig;
+import kafka.javaapi.consumer.ConsumerConnector;
+
 /**
- * Configurações do Kafka
+ * Configuracoes do Kafka
  * @author fabio
  */
 @Configuration
@@ -29,11 +33,14 @@ public class KafkaConfiguration {
 	@Value("${kafka.servers.bootstrap:}")
 	private String bootstrapServers; // TODO we should try to get all properties from the file
 	
+	@Value("${zookeeper.connect:}")
+	private String zookeeperConnect; // TODO we should try to get all properties from the file
+	
 	/*
 	 * Producer
 	 */
 	/**
-	 * Configurações do Kafka
+	 * Configuracoes do Kafka
 	 * @return
 	 */
 	@Bean
@@ -53,6 +60,25 @@ public class KafkaConfiguration {
 	@Bean
 	public Producer<String, SerializedDFe> producer() {
 		return new KafkaProducer<String, SerializedDFe>(producerConfigs());
+	}
+	
+	/*
+	 * Consumer
+	 */
+	@Bean
+	public Properties consumerConfigs() {
+		Properties props = new Properties();
+		props.put(org.apache.kafka.clients.consumer.ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, 			bootstrapServers);
+		props.put("zookeeper.connect", 																	zookeeperConnect);
+		props.put(org.apache.kafka.clients.consumer.ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, 		StringSerializer.class);
+		props.put(org.apache.kafka.clients.consumer.ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, 	SerializedDFeSerializer.class);
+		props.put(org.apache.kafka.clients.consumer.ConsumerConfig.GROUP_ID_CONFIG, 					"nassau");
+		return props;
+	}
+	
+	@Bean
+	public ConsumerConnector consumer() {
+		return Consumer.createJavaConsumerConnector(new ConsumerConfig(consumerConfigs()));
 	}
 	
 	@Bean

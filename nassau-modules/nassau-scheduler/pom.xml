@@ -5,13 +5,13 @@
 
 	<parent>
 		<groupId>com.nassau.br</groupId>
-		<artifactId>nassau</artifactId>
+		<artifactId>nassau-modules</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>nassau-api</artifactId>
+	<artifactId>nassau-scheduler</artifactId>
 	<packaging>jar</packaging>
-	<name>Projeto Nassau: API Padrão</name>
+	<name>Projeto Nassau: Modulo Escalonador</name>
 
 	<dependencies>
 		<!-- Nassau -->
@@ -20,17 +20,11 @@
 			<artifactId>nassau-core</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
-
+		
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
+			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
 	</dependencies>
 

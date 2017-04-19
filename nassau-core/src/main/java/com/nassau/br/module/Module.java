@@ -1,9 +1,9 @@
-package com.nassau.br;
+package com.nassau.br.module;
 
 import java.io.Serializable;
 
 /**
- * A classe base de todos os módulos do projeto nassau.
+ * A classe base de todos os modulos do projeto nassau.
  * 
  * @author fsantos
  */
@@ -11,7 +11,7 @@ public class Module implements Serializable {
 	private static final long serialVersionUID = -7529833984935119735L;
 
 	/**
-	 * O Topico do Kafka por onde os DF-es chegarão até o modulo
+	 * O Topico do Kafka por onde os DF-es chegarao ate o modulo
 	 */
 	private String kafkaTopic;
 	
@@ -38,6 +38,16 @@ public class Module implements Serializable {
 		super();
 		this.kafkaTopic = kafkaTopic;
 		this.zNode 		= zNode;
+	}
+	
+	/**
+	 * Construtor de cÃ³pia
+	 * @param module
+	 */
+	public Module(Module module) {
+		super();
+		this.kafkaTopic = module.kafkaTopic;
+		this.zNode		= module.zNode;
 	}
 
 	public String getKafkaTopic() {

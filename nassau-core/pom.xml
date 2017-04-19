@@ -11,7 +11,7 @@
 
 	<artifactId>nassau-core</artifactId>
 	<packaging>jar</packaging>
-	<name>Funcionalidades basicas do projeto nassau</name>
+	<name>Projeto Nassau: Core</name>
 
 	<dependencies>
 		<!-- Spring -->
@@ -29,8 +29,14 @@
 		<!-- Kafka -->
 		<dependency>
 		    <groupId>org.apache.kafka</groupId>
-		    <artifactId>kafka-clients</artifactId>
+		    <artifactId>kafka_2.11</artifactId>
 		    <version>0.9.0.1</version>
+		    <exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		
 		<!-- Zookeeper -->

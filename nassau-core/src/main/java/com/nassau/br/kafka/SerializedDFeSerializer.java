@@ -11,15 +11,15 @@ import com.nassau.br.exceptions.NassauException;
 import com.nassau.br.hbase.EntityManager;
 
 /**
- * Essa classe serializa um DFe para enfileir�-lo no Kafka.
- * A estrat�gia � salvar o DFe no HBase e enfileirar somente o c�digo do documento no Kafka.
+ * Essa classe serializa um DFe para enfileira-lo no Kafka.
+ * A estrategia e salvar o DFe no HBase e enfileirar somente o codigo do documento no Kafka.
  *  
  * @author fabio
  */
 @Component
 public class SerializedDFeSerializer implements Serializer<SerializedDFe> {
 	/**
-	 * Isso aqui � uma gambiarra tremenda. Temos que achar um jeito melhor pra
+	 * Isso aqui e uma gambiarra tremenda. Temos que achar um jeito melhor pra
 	 * injetar o HBase no Serializador do Kafka.
 	 */
 	private static EntityManager em;

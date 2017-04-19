@@ -46,7 +46,7 @@ public class HBaseConfig {
 	private String clientPort;
 	
 	/**
-	 * Configurações do HBase
+	 * Configuracoes do HBase
 	 * @return
 	 * @throws NassauException 
 	 */

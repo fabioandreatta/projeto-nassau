@@ -9,7 +9,7 @@ import org.I0Itec.zkclient.IZkChildListener;
 import org.I0Itec.zkclient.ZkClient;
 import org.I0Itec.zkclient.ZkConnection;
 
-import com.nassau.br.Module;
+import com.nassau.br.module.Module;
 
 /**
  * Interface entre o Nassau e o Zookeeper
@@ -44,7 +44,7 @@ public class ZookeeperTemplate implements IZkChildListener {
 	 * Starts the client
 	 */
 	private void start(String quorum) {
-		// Cria a conexão com o ZK 
+		// Cria a conexao com o ZK 
 		zookeeper = new ZkClient(new ZkConnection(quorum));
 		
 		// Check if the root znode exists
@@ -54,7 +54,7 @@ public class ZookeeperTemplate implements IZkChildListener {
 	}
 	
 	/**
-	 * Monitora qualquer mudança na lista de znodes monitorados
+	 * Monitora qualquer mudanca na lista de znodes monitorados
 	 */
 	@Override
 	public void handleChildChange(String path, List<String> children) throws Exception {
@@ -66,13 +66,13 @@ public class ZookeeperTemplate implements IZkChildListener {
 	 * @param children
 	 */
 	private void updateRegisteredModules(List<String> children) {
-		// Verifica adições de modulos
+		// Verifica adicoes de modulos
 		for (String child : children) {
-			Module module = zookeeper.readData(NASSAU_ROOT + child);
+			Module module = zookeeper.readData(NASSAU_ROOT + "/" + child);
 			if (!modules.contains(child)) modules.add(module.setZNode(child));
 		}
 		
-		// Verifica remoções de modulos
+		// Verifica remocoes de modulos
 		for (Module module : modules) {
 			if (!children.contains(module.getZNode())) modules.remove(module);
 		}
@@ -92,7 +92,8 @@ public class ZookeeperTemplate implements IZkChildListener {
 	 * @param path
 	 * @param data
 	 */
-	public void register(Module module) {
+	public void register(Module param) {
+		Module module = new Module(param);
 		String path = module.getZNode();
 		if (!exists(path)) zookeeper.createPersistent(NASSAU_ROOT + path, module);
 		modules.add(module);

@@ -11,7 +11,7 @@
 
 	<artifactId>nassau-nfe-bi</artifactId>
 	<packaging>jar</packaging>
-	<name>Nassau NF-e BI</name>
+	<name>Projeto Nassau: Modulo BI de NF-e</name>
 
 	<dependencies>
 		<!-- Nassau -->

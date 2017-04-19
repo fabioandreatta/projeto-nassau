@@ -20,12 +20,8 @@ public class HBaseStructureCreator {
 	
 	@Bean
 	public HBaseStructure createStructure() {
-		// TODO isso devia ser configur�vel :)
+		// TODO isso devia ser configurável :)
 		List<Class<?>> classes = PackageClassLoader.find("com.nassau.br"); 
-		for (Class<?> clazz : classes) {
-			System.out.println(clazz);
-		}
-		
 		List<Class<?>> structuralClasses = new ArrayList<Class<?>>();
 		for (Class<?> clazz : classes) {
 			if (clazz.isAnnotationPresent(NassauHTable.class)) {
@@ -37,8 +33,8 @@ public class HBaseStructureCreator {
 					if (!hbase.tableExists(table)) {
 						hbase.createTable(table, families);
 					}
-					// TODO Devemos melhorar isso. Se a tabela j� existe, ent�o temos que ver 
-					// se todas as familias est�o presentes. 
+					// TODO Devemos melhorar isso. Se a tabela ja existe, entao temos que ver 
+					// se todas as familias estao presentes. 
 				} catch (NassauException e) {
 					// TODO Log
 				}

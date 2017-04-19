@@ -7,7 +7,7 @@
     <artifactId>nassau-modules</artifactId>
     <packaging>pom</packaging>
 
-    <name>Nassau Modules</name>
+    <name>Projeto Nassau: Modulos</name>
     <description>Os módulos de processamento do Projeto Nassau.</description>
 
     <parent>
@@ -17,6 +17,7 @@
     </parent>
 
     <modules>
+        <module>nassau-scheduler</module>
         <module>nassau-nfe-bi</module>
     </modules>
 
