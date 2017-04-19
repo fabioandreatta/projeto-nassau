@@ -10,6 +10,9 @@ import com.nassau.br.SerializedDFe;
 import com.nassau.br.exceptions.NassauException;
 import com.nassau.br.hbase.EntityManager;
 
+import kafka.serializer.Decoder;
+import kafka.utils.VerifiableProperties;
+
 /**
  * Essa classe deserializa um DFe para desenfileirá-lo do Kafka.
  * A estratégia é carregar o DFe do HBase eem um objeto SerializedDFe.
@@ -17,12 +20,20 @@ import com.nassau.br.hbase.EntityManager;
  * @author fabio
  */
 @Component
-public class SerializedDFeDeserializer implements Deserializer<SerializedDFe>  {
+public class SerializedDFeDeserializer implements Deserializer<SerializedDFe>, Decoder<SerializedDFe>  {
 	/**
-	 * Isso aqui � uma gambiarra tremenda. Temos que achar um jeito melhor pra
+	 * Isso aqui e uma gambiarra tremenda. Temos que achar um jeito melhor pra
 	 * injetar o HBase no Serializador do Kafka.
 	 */
 	private static EntityManager em;
+	
+	public SerializedDFeDeserializer() {
+		super();
+	}
+	
+	public SerializedDFeDeserializer(VerifiableProperties properties) {
+		super();
+	}
 	
 	@Autowired
 	public void setHbase(EntityManager em) {
@@ -48,6 +59,11 @@ public class SerializedDFeDeserializer implements Deserializer<SerializedDFe>  {
 			// TODO Log
 		}
 		return null;
+	}
+
+	@Override
+	public SerializedDFe fromBytes(byte[] data) {
+		return deserialize(null, data);
 	}
 
 }
